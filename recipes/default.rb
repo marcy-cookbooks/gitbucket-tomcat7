@@ -21,7 +21,10 @@ service "tomcat7" do
 end
 
 execute "copy-to-webapps" do
-  command "cp -p /usr/local/src/gitbucket/gitbucket.#{node['gitbucket-tomcat7']['version']}.war /usr/share/tomcat7/webapps/gitbucket.war"
+  command <<-EOH
+  cp -p /usr/local/src/gitbucket/gitbucket.#{node['gitbucket-tomcat7']['version']}.war /usr/share/tomcat7/webapps/gitbucket.war
+  rm -rf /usr/share/tomcat7/webapps/gitbucket
+  EOH
   action :nothing
   notifies :restart, "service[tomcat7]"
 end
