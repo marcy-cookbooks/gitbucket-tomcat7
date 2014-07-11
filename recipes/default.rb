@@ -28,6 +28,8 @@ end
 
 remote_file "/usr/local/src/gitbucket/gitbucket.#{node['gitbucket-tomcat7']['version']}.war" do
   source "https://github.com/takezoe/gitbucket/releases/download/#{node['gitbucket-tomcat7']['version']}/gitbucket.war"
+  owner "tomcat"
+  group "tomcat"
   action :create_if_missing
   notifies :run, "execute[copy-to-webapps]"
 end
